@@ -30,7 +30,7 @@ from TimeNormalizer import TimeNormalizer # 引入包
 
 tn = TimeNormalizer()
 
-res = tn.parse(target='下礼拜下午两点') # target为待分析语句，timeBase为基准时间默认是当前时间
+res = tn.parse(target='下周三下午两点30分五秒‘) # target为待分析语句，timeBase为基准时间默认是当前时间
 print(res)
 res = tn.parse(target='2013年二月二十八日下午四点三十分二十九秒', timeBase='2013-02-28 16:30:29') # target为待分析语句，timeBase为基准时间默认是当前时间
 print(res)
@@ -44,7 +44,7 @@ print(res)
 ```
 输出：
 ```
-{"type": "timestamp", "timestamp": "2019-10-13 14:00:00"}
+{"type": "timestamp", "timestamp": "2019-10-16 14:30:05"}
 {"timestamp": "2013-02-28 16:30:29", "type": "timestamp"}
 {"timedelta": "33 days, 0:02:00", "type": "timedelta"}
 {'timestamp': '2019-03-27 00:00:00', 'type': 'timestamp'}
