@@ -649,7 +649,7 @@ class TimeUnit:
             cur = cur.shift(days=3)
 
         # todo 补充星期相关的预测 done
-        rule = "(?<=(上上(周|星期)))[1-7]?"
+        rule = "(?<=(上上(周|星期|礼拜)))[1-7]?"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
@@ -660,10 +660,10 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.shift(weeks=-2)
+            cur = cur.shift(weeks=-2, days=span)
             # cur = cur.replace(weeks=-2, days=span)
 
-        rule = "(?<=((?<!上)上(周|星期)))[1-7]?"
+        rule = "(?<=((?<!上)上(周|星期|礼拜)))[1-7]?"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
@@ -674,10 +674,10 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.shift(weeks=-1)
+            cur = cur.shift(weeks=-1, days=span)
             # cur = cur.replace(weeks=-1, days=span)
 
-        rule = "(?<=((?<!下)下(周|星期)))[1-7]?"
+        rule = "(?<=((?<!下)下(周|星期|礼拜)))[1-7]?"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
@@ -688,10 +688,10 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.shift(weeks=1)
+            cur = cur.shift(weeks=1, days=span)
             # cur = cur.replace(weeks=1, days=span)
 
-        rule = "(?<=(下下(周|星期)))[1-7]?"
+        rule = "(?<=(下下(周|星期|礼拜)))[1-7]?"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
@@ -702,10 +702,10 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.shift(weeks=2)
+            cur = cur.shift(weeks=2, days=span)
             # cur = cur.replace(weeks=2, days=span)
 
-        rule = "(?<=((?<!(上|下|个|[0-9]))(周|星期)))[1-7]"
+        rule = "(?<=((?<!(上|下|个|[0-9]))(周|星期|礼拜)))[1-7]"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
