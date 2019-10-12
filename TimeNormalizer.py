@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time    : 2017/11/20 16:39
-# @Author  : zhm
+# @Author  : zhm revised by stacy
 # @File    : TimeNormalizer.py
 # @Software: PyCharm
 import pickle

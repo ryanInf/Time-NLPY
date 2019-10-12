@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time    : 2017/11/20 17:01
-# @Author  : zhm
+# @Author  : zhm revised by stacy
 # @File    : TimeUnit.py
 # @Software: PyCharm
 import regex as re
@@ -660,7 +660,8 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.replace(weeks=-2, days=span)
+            cur = cur.shift(weeks=-2)
+            # cur = cur.replace(weeks=-2, days=span)
 
         rule = "(?<=((?<!上)上(周|星期)))[1-7]?"
         pattern = re.compile(rule)
@@ -673,7 +674,8 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.replace(weeks=-1, days=span)
+            cur = cur.shift(weeks=-1)
+            # cur = cur.replace(weeks=-1, days=span)
 
         rule = "(?<=((?<!下)下(周|星期)))[1-7]?"
         pattern = re.compile(rule)
@@ -686,7 +688,8 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.replace(weeks=1, days=span)
+            cur = cur.shift(weeks=1)
+            # cur = cur.replace(weeks=1, days=span)
 
         rule = "(?<=(下下(周|星期)))[1-7]?"
         pattern = re.compile(rule)
@@ -699,7 +702,8 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.replace(weeks=2, days=span)
+            cur = cur.shift(weeks=2)
+            # cur = cur.replace(weeks=2, days=span)
 
         rule = "(?<=((?<!(上|下|个|[0-9]))(周|星期)))[1-7]"
         pattern = re.compile(rule)
@@ -712,7 +716,8 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.replace(days=span)
+            # cur = cur.replace(days=span)
+            cur = cur.shift(days=span)
             # 处理未来时间
             cur = self.preferFutureWeek(week, cur)
 

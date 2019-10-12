@@ -1,3 +1,9 @@
+## 新增说明：
+ryanInf的版本有两个小问题
+1、不能识别下星期下礼拜等和周相关的时间，已解决
+2、在windows下使用有问题，ryanInf给出的方案不能解决这个问题。解决方案：将其中的regex.txt文件放入python的site-packages下
+例如：D:\Users\Administrator\Anaconda3\Lib\site-packages\TimeConverter-1.0.0-py3.7.egg\resource\regex.txt
+
 ## 说明：  
 Time-NLP的python3版本，由于原作者sunfiyes的是python2版本，无法在python3上使用，故修改部分代码，使其可在Python3上使用（本人新手，可能有bug）
 原项目地址：https://github.com/sunfiyes/Time-NLPY  
