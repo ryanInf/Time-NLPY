@@ -1,6 +1,7 @@
 ## 新增说明：
 ryanInf的版本有两个小问题
 1、不能识别下星期下礼拜等和周相关的时间，已解决
+
 2、在windows下使用有问题，ryanInf给出的方案不能解决这个问题。解决方案：将其中的regex.txt文件放入python的site-packages下
 例如：D:\Users\Administrator\Anaconda3\Lib\site-packages\TimeConverter-1.0.0-py3.7.egg\resource\regex.txt
 
@@ -29,7 +30,7 @@ from TimeNormalizer import TimeNormalizer # 引入包
 
 tn = TimeNormalizer()
 
-res = tn.parse(target='从明天到明年', timeBase='2013-02-28 16:30:29') # target为待分析语句，timeBase为基准时间默认是当前时间
+res = tn.parse(target='下礼拜下午两点') # target为待分析语句，timeBase为基准时间默认是当前时间
 print(res)
 res = tn.parse(target='2013年二月二十八日下午四点三十分二十九秒', timeBase='2013-02-28 16:30:29') # target为待分析语句，timeBase为基准时间默认是当前时间
 print(res)
@@ -43,7 +44,7 @@ print(res)
 ```
 输出：
 ```
-{"timespan": ["2013-03-01 00:00:00", "2014-01-01 00:00:00"], "type": "timespan"}
+{"type": "timestamp", "timestamp": "2019-10-13 14:00:00"}
 {"timestamp": "2013-02-28 16:30:29", "type": "timestamp"}
 {"timedelta": "33 days, 0:02:00", "type": "timedelta"}
 {'timestamp': '2019-03-27 00:00:00', 'type': 'timestamp'}
