@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Time    : 2017/11/20 17:01
-# @Author  : zhm
+# @Author  : zhm revised by stacy
 # @File    : TimeUnit.py
 # @Software: PyCharm
 import regex as re
@@ -194,7 +194,7 @@ class TimeUnit:
         时-规范化方法：该方法识别时间表达式单元的时字段
         :return:
         """
-        rule = "(?<!(周|星期))([0-2]?[0-9])(?=(点|时))"
+        rule = "(?<!(周|星期|礼拜))([0-2]?[0-9])(?=(点|时))"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
@@ -336,7 +336,7 @@ class TimeUnit:
         特殊形式的规范化方法-该方法识别特殊形式的时间表达式单元的各个字段
         :return:
         """
-        rule = "(?<!(周|星期))([0-2]?[0-9]):[0-5]?[0-9]:[0-5]?[0-9]"
+        rule = "(?<!(周|星期|礼拜))([0-2]?[0-9]):[0-5]?[0-9]:[0-5]?[0-9]"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
@@ -349,7 +349,7 @@ class TimeUnit:
             self.preferFuture(3)
             self.isAllDayTime = False
         else:
-            rule = "(?<!(周|星期))([0-2]?[0-9]):[0-5]?[0-9]"
+            rule = "(?<!(周|星期|礼拜))([0-2]?[0-9]):[0-5]?[0-9]"
             pattern = re.compile(rule)
             match = pattern.search(self.exp_time)
             if match is not None:
@@ -649,7 +649,7 @@ class TimeUnit:
             cur = cur.shift(days=3)
 
         # todo 补充星期相关的预测 done
-        rule = "(?<=(上上(周|星期)))[1-7]?"
+        rule = "(?<=(上上(周|星期|礼拜)))[1-7]?"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
@@ -660,9 +660,10 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.replace(weeks=-2, days=span)
+            cur = cur.shift(weeks=-2, days=span)
+            # cur = cur.replace(weeks=-2, days=span)
 
-        rule = "(?<=((?<!上)上(周|星期)))[1-7]?"
+        rule = "(?<=((?<!上)上(周|星期|礼拜)))[1-7]?"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
@@ -673,9 +674,10 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.replace(weeks=-1, days=span)
+            cur = cur.shift(weeks=-1, days=span)
+            # cur = cur.replace(weeks=-1, days=span)
 
-        rule = "(?<=((?<!下)下(周|星期)))[1-7]?"
+        rule = "(?<=((?<!下)下(周|星期|礼拜)))[1-7]?"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
@@ -686,9 +688,10 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.replace(weeks=1, days=span)
+            cur = cur.shift(weeks=1, days=span)
+            # cur = cur.replace(weeks=1, days=span)
 
-        rule = "(?<=(下下(周|星期)))[1-7]?"
+        rule = "(?<=(下下(周|星期|礼拜)))[1-7]?"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
@@ -699,9 +702,10 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.replace(weeks=2, days=span)
+            cur = cur.shift(weeks=2, days=span)
+            # cur = cur.replace(weeks=2, days=span)
 
-        rule = "(?<=((?<!(上|下|个|[0-9]))(周|星期)))[1-7]"
+        rule = "(?<=((?<!(上|下|个|[0-9]))(周|星期|礼拜)))[1-7]"
         pattern = re.compile(rule)
         match = pattern.search(self.exp_time)
         if match is not None:
@@ -712,7 +716,8 @@ class TimeUnit:
                 week = 1
             week -= 1
             span = week - cur.weekday()
-            cur = cur.replace(days=span)
+            # cur = cur.replace(days=span)
+            cur = cur.shift(days=span)
             # 处理未来时间
             cur = self.preferFutureWeek(week, cur)
 
